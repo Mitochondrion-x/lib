@@ -1,6 +1,6 @@
 #include<iostream>
 
-//	#define Maxsize 50
+//#define Maxsize 50
 using namespace std;
 
 typedef struct SeqList{
