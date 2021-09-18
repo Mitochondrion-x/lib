@@ -3,7 +3,6 @@
 //#define Maxsize 50
 using namespace std;
 
-//Sequence table
 typedef struct {	//static allocation
 	ElemType data[MaxSize];
 	int length;	
