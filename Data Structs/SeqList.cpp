@@ -3,10 +3,19 @@
 //#define Maxsize 50
 using namespace std;
 
-typedef struct SeqList{
-	Elemtype *data;
-	int length,Maxsize;
-}SeqList; 
+//Sequence table
+typedef struct {	//static allocation
+	ElemType data[MaxSize];
+	int length;	
+}Seqlist;
+
+#define InitSize 100
+typedef struct {	//dynamic allocation
+	ElemType *data;
+	int length,MaxSize;
+}Seqlist2;
+Seqlist2.data = (ElemType *) malloc (InitSize*sizeof(ElemType)); //C allocation memory space
+Seqlist2.data = new ElemType[InitSize]; //C++ allocation memory space 
 
 
 
