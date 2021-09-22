@@ -13,16 +13,16 @@ void swap(int *a,int *b) {
 	b = temp;
 }
 
-//³õÊ¼»¯ 
+//åˆå§‹åŒ– 
 bool InitSize(LinkList *L) {
-	L = (LNode*) malloc (sizeof(LNode)*Elemtyep);
+	L = (LNode*) malloc (sizeof(LNode)*Elemtype);
 	if(!L->length == NULL) 
 		return false;
 	L->length = 0;
 	return true;
 }
 
-//Á´±í´æ´¢µÄÄæÖÃ---Ë«Á´±í 
+//é“¾è¡¨å­˜å‚¨çš„é€†ç½®---åŒé“¾è¡¨ 
 void reverse(LinkList &L) {
 	LinkList *begin = _head;
 	LinkList *end = _end;
