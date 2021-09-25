@@ -4,7 +4,21 @@ typedef struct {
 	int length;
 }SSTable;
 
-//é¡ºåºæŸ¥æ‰¾(ä¸å¸¦å“¨å…µ)
+typedef struct LNode {
+	Elemtype *data;
+	int length;
+	struct Lnode *next;
+}LNode,*LinkList;
+
+typedef struct BTNode {
+	Elemtype *data;
+	int length;
+	struct BTNode *lChild, *rChild;
+}BTNode,*LinkList; 
+
+
+/*-----------------Ë³Ğò²éÕÒ---------------------*/ 
+//Ë³Ğò±í---------------------²»´øÉÚ±ø 
 int Seq_Search(SSTable &S, Elemtype key) {
 	int i = 0;
 	while(i<S.length && S.data[i]!=key)
@@ -14,11 +28,84 @@ int Seq_Search(SSTable &S, Elemtype key) {
 	else
 		return 0;
 }
+//Ë³Ğò±í---------------------´øÉÚ±ø
 int Seq_Search2(SSTable &S, Elemtype key) {
 	int i = S.length;
-	S.data[0] = key; //å°†å…³é”®å­—å­˜æ”¾åœ¨0ä½ç½®å¤„ï¼Œé˜²æ­¢è¶Šç•Œ 
+	S.data[0] = key; //½«¹Ø¼ü×Ö´æ·ÅÔÚ0Î»ÖÃ´¦£¬·ÀÖ¹Ô½½ç 
 	while(S.data[i]=key)
 		i--;
 	return i;
-}//ä¸€åˆ‡ä¸ºç®€åŒ–è¾¹ç•Œæ¡ä»¶è€Œå¼•å…¥çš„é™„åŠ èŠ‚ç‚¹å‡å¯ç§°ä¸ºå“¨å…µ 
-/*  å“¨å…µçš„ä¸»è¦ä½œç”¨å°±æ˜¯åœ¨æŸ¥æ‰¾å¾ªç¯ä¸­ç›‘è§†ä¸‹è¡¨iæ˜¯å¦è¶Šç•Œ,ä¸€æ—¦è¶Šç•Œ(i=0)ï¼Œå› ä¸ºå¯ä»¥å’Œè‡ªå·±è¿›è¡Œæ¯”è¾ƒå¾ªç¯åˆ¤æ–­æ¡ä»¶ä¸æˆç«‹å°±ä½¿å¾—æŸ¥æ‰¾å¾ªç¯ç»“æŸï¼Œå°±å¯ä»¥è¾¾åˆ°å¿½ç•¥åˆ¤å®šè¾¹ç•Œè°ƒèŠ‚çš„ç›®çš„ */ 
+}//Ò»ÇĞÎª¼ò»¯±ß½çÌõ¼ş¶øÒıÈëµÄ¸½¼Ó½Úµã¾ù¿É³ÆÎªÉÚ±ø 
+/*  ÉÚ±øµÄÖ÷Òª×÷ÓÃ¾ÍÊÇÔÚ²éÕÒÑ­»·ÖĞ¼àÊÓÏÂ±íiÊÇ·ñÔ½½ç,Ò»µ©Ô½½ç(i=0)£¬ÒòÎª¿ÉÒÔºÍ×Ô¼º½øĞĞ±È½Ï
+Ñ­»·ÅĞ¶ÏÌõ¼ş²»³ÉÁ¢¾ÍÊ¹µÃ²éÕÒÑ­»·½áÊø£¬¾Í¿ÉÒÔ´ïµ½ºöÂÔÅĞ¶¨±ß½çµ÷½ÚµÄÄ¿µÄ */ 
+
+//Á´±í 
+LNode* Search(LinkList &head, Elemtype key) {
+	LinkList *p = head->next;
+	while(!p) {
+		if(p->data == key)
+			return p;
+		p = p->next;
+	}
+	return NULL;	
+} 
+
+/*-----------------¶ş·Ö²éÕÒ---------------------*/ 
+int BinSearch_iterate(int a[], int key) {
+	int low = 0, high = n-1, 
+	int mid;	//µ±Ç°Çø¼ä´æÔÚÔªËØ
+	while(low <= high) {
+		mid = (low+high)/2;
+		if(a[mid] == key)
+			return mid;
+		else if(a[mid] > key)
+			high = mid-1;	//×ó°ëÇø¼ä 
+		else
+			low = mid+1;	//ÓÒ°ëÇø¼ä 
+	}
+	return -1; 
+}
+
+int BinSearch_recursion(int a[], int low, int high, int key) {
+	int mid;
+	if(low <= high) {
+		mid = (low+high)/2;
+		if(a[mid] == key)
+			return mid;
+		if(a[mid] > key)
+			return BinSearch_recursion(a, low, mid-1, key)
+		else
+			return BinSearch_recursion(a, mid+1, high, key)
+	}
+	else
+		return -1; 
+}
+
+/*-----------------¶ş²æÅÅĞòÊ÷---------------------*/ 
+BTNode* BSTSearch_iterate(LinkList &p, Elemtype key) {
+	while(p != NULL) {
+		if(key == p->data[key])
+			return p;
+		else if
+			p = p->lChild;
+		else
+			p = p->rChild;
+	}
+	return NULL;
+}
+
+BTNode* BSTSearch_recursion(LinkList &p, Elemtype key) {
+	if(p == NULL)
+		return NULL;
+	else {
+		if(key ==  p->data.key)
+			return p;
+		else if(key < p->data[key])
+			return BSTSearch(p->lChild, key);
+		else
+			return BSTSearch(p->rChild, key);
+	}	
+}
+
+
+
