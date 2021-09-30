@@ -27,6 +27,7 @@ void merge_sort(SeqList &L, int low, int high) {
 	}
 }//MergeSortDC
 
+
 //对L(low,high)快速排序 
 void quick_sort(SeqList &L, int low, int high) {
 	int pivotpos;	//划分后的基准记录的位置 
@@ -38,17 +39,53 @@ void quick_sort(SeqList &L, int low, int high) {
 		quick_sort(L, pivotpos+1, high)	//对右区间进行划分 
 	}
 }//QuickSort
+int Partition(SeqList &L, int low, int high){  //一趟划分 
+	Elemtype privot = L->data[low];	//将当前表中第一个元素设为枢轴，对表进行划分 
+	while(low<high) {	//循环跳出条件 
+		for(; low<high&&L->data[high]>=pivot; --high)
+			L->data[low] = L->data[high]; //将比枢轴小的元素移动到左端 
+		for(; low<high&&A[low]<=pivot; ++low)
+			L->data[high] = L->data[low]; //将比枢轴小的元素移动到右端 
+	}
+	L->data[low] = pivot; //枢轴元素的最终位置 
+	return low;		//返回存放枢轴的最终位置 
+}
 
+
+
+
+//对L(1~n)建成初始堆 
 void heap_sort(SeqList &L) {
 	int i;
-	BuildHeap(L);
-	for(i=n; i>1; --i) 
+	Build_MaxHeap(L);	//将L(1~n)建成初始堆 
+	for(i=L.length; i>1; --i)	{//对当前无序区L(1~n)进行堆排序,共做n-1趟 
 //		L->data[0] = L->data[1];
 //		L->data[1] = L->data[i];
 //		L->data[i] = L->data[0];
-			swap(&L->data[1], &L->data[i]);
-	Heapify(L, 1, i-1);
+		swap(&L->data[1], &L->data[i]);	//将栈顶和最后一个交换 
+		Heapify(L, 1, i-1);	//将L(1~i-1)重新调整成堆,仅有L[1]可能违反堆性质 
+	}//endfor 
+}//HeapSort 
+void Build_MaxHeap(SeqList &L) {
+	for(int i=L.length/2; --i)	//从i=(n/2)~1,反复调整堆 
+		HeadAdjust(L);
 }
+//函数HeadAdjust将元素k为根的子树进行调整 
+void HeadAdjust(SeqList &L, int k) {
+	L->data[0] = L->data[k];	//L[0]存放子树根结点 
+	for(i=2*k; i<=L.length; i*=2) {	//沿Key较大的子结点的下标 
+		if(i<L.length && L->data[i]<L->data[i+1])
+			i++;
+		if(L->data[0]>=L->data[i])	//筛选结束 
+			break;
+		else
+			L->data[k] = L->data[i];	//将L[i]调整到双亲结点上 
+			k = i;		//修改K值,以便继续向下筛选 
+	}
+	L->data[k] = L->data[0]; //被筛选结点的值放入最终位置 
+}
+
+
 
 void bubble_sort(SeqList &L) {
 	int i,j;
@@ -107,7 +144,18 @@ void shell_sort(SeqList &L) {
 	}
 }
 
-
+//void shellsort(SeqList &L) {
+//	int i,j,gap;
+//	for(gap=L.length/2; gap>=1; gap/=2) {
+//		for(i=gap; i<L.length; ++i) {
+//			if(L->data[i]<L->data[i-gap])
+//				L->data[0] = L->data[i];
+//				for(j=i-gap; j>0&&L->data[0]<L->data[j]; j-=gap)
+//					L->data[j+gap] = L->data[j];
+//				L->data[j+gap] = L->data[0];
+//		}
+//	}
+//}
 
 
 
