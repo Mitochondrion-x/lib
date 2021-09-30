@@ -12,77 +12,77 @@ void swap(int *a,int *b) {
 	*b = temp;
 }
 
-//ÓÃ·ÖÖÎ·¨¶ÔL(low ~ high)½øĞĞ¶şÂ·¹é²¢ÅÅĞò
+//ç”¨åˆ†æ²»æ³•å¯¹L(low ~ high)è¿›è¡ŒäºŒè·¯å½’å¹¶æ’åº
 void merge_sort(SeqList &L, int low, int high) {	 
 	 int mid;
-	 //Çø¼ä³¤¶È´óÓÚ1 
+	 //åŒºé—´é•¿åº¦å¤§äº1 
 	 if(low<high) {
-	 	//·Ö½â 
+	 	//åˆ†è§£ 
 	 	mid = (low+high)/2;
-	 	//µİ¹éÅÅĞò 
+	 	//é€’å½’æ’åº 
 		merge_sort(L, low, mid);
 	 	merge_sort(L, mid+1, high);
-	 	//×éºÏ£¬½«Á½¸öÓĞĞòÇøºÏ²¢³ÉÎªÒ»¸öÓĞĞòÇø 
+	 	//ç»„åˆï¼Œå°†ä¸¤ä¸ªæœ‰åºåŒºåˆå¹¶æˆä¸ºä¸€ä¸ªæœ‰åºåŒº 
 		merge(L, low, mid, high);
 	}
 }//MergeSortDC
 
 
-//¶ÔL(low,high)¿ìËÙÅÅĞò 
+//å¯¹L(low,high)å¿«é€Ÿæ’åº 
 void quick_sort(SeqList &L, int low, int high) {
-	int pivotpos;	//»®·ÖºóµÄ»ù×¼¼ÇÂ¼µÄÎ»ÖÃ 
-	if(low<high) {  //½öµ±Çø¼ä³¤¶È´óÓÚ1Ê±²ÅĞèÅÅĞò 
-		//¶ÔL(L, low, high)×ö»®·Ö 
+	int pivotpos;	//åˆ’åˆ†åçš„åŸºå‡†è®°å½•çš„ä½ç½® 
+	if(low<high) {  //ä»…å½“åŒºé—´é•¿åº¦å¤§äº1æ—¶æ‰éœ€æ’åº 
+		//å¯¹L(L, low, high)åšåˆ’åˆ† 
 		pivotpos = Partition(L, low, high);
 		
-		quick_sort(L, low, pivotpos-1);	//¶Ô×óÇø¼ä½øĞĞ»®·Ö 
-		quick_sort(L, pivotpos+1, high)	//¶ÔÓÒÇø¼ä½øĞĞ»®·Ö 
+		quick_sort(L, low, pivotpos-1);	//å¯¹å·¦åŒºé—´è¿›è¡Œåˆ’åˆ† 
+		quick_sort(L, pivotpos+1, high)	//å¯¹å³åŒºé—´è¿›è¡Œåˆ’åˆ† 
 	}
 }//QuickSort
-int Partition(SeqList &L, int low, int high){  //Ò»ÌË»®·Ö 
-	Elemtype privot = L->data[low];	//½«µ±Ç°±íÖĞµÚÒ»¸öÔªËØÉèÎªÊàÖá£¬¶Ô±í½øĞĞ»®·Ö 
-	while(low<high) {	//Ñ­»·Ìø³öÌõ¼ş 
+int Partition(SeqList &L, int low, int high){  //ä¸€è¶Ÿåˆ’åˆ† 
+	Elemtype privot = L->data[low];	//å°†å½“å‰è¡¨ä¸­ç¬¬ä¸€ä¸ªå…ƒç´ è®¾ä¸ºæ¢è½´ï¼Œå¯¹è¡¨è¿›è¡Œåˆ’åˆ† 
+	while(low<high) {	//å¾ªç¯è·³å‡ºæ¡ä»¶ 
 		for(; low<high&&L->data[high]>=pivot; --high)
-			L->data[low] = L->data[high]; //½«±ÈÊàÖáĞ¡µÄÔªËØÒÆ¶¯µ½×ó¶Ë 
+			L->data[low] = L->data[high]; //å°†æ¯”æ¢è½´å°çš„å…ƒç´ ç§»åŠ¨åˆ°å·¦ç«¯ 
 		for(; low<high&&A[low]<=pivot; ++low)
-			L->data[high] = L->data[low]; //½«±ÈÊàÖáĞ¡µÄÔªËØÒÆ¶¯µ½ÓÒ¶Ë 
+			L->data[high] = L->data[low]; //å°†æ¯”æ¢è½´å°çš„å…ƒç´ ç§»åŠ¨åˆ°å³ç«¯ 
 	}
-	L->data[low] = pivot; //ÊàÖáÔªËØµÄ×îÖÕÎ»ÖÃ 
-	return low;		//·µ»Ø´æ·ÅÊàÖáµÄ×îÖÕÎ»ÖÃ 
+	L->data[low] = pivot; //æ¢è½´å…ƒç´ çš„æœ€ç»ˆä½ç½® 
+	return low;		//è¿”å›å­˜æ”¾æ¢è½´çš„æœ€ç»ˆä½ç½® 
 }
 
 
 
 
-//¶ÔL(1~n)½¨³É³õÊ¼¶Ñ 
+//å¯¹L(1~n)å»ºæˆåˆå§‹å † 
 void heap_sort(SeqList &L) {
 	int i;
-	Build_MaxHeap(L);	//½«L(1~n)½¨³É³õÊ¼¶Ñ 
-	for(i=L.length; i>1; --i)	{//¶Ôµ±Ç°ÎŞĞòÇøL(1~n)½øĞĞ¶ÑÅÅĞò,¹²×ön-1ÌË 
+	Build_MaxHeap(L);	//å°†L(1~n)å»ºæˆåˆå§‹å † 
+	for(i=L.length; i>1; --i)	{//å¯¹å½“å‰æ— åºåŒºL(1~n)è¿›è¡Œå †æ’åº,å…±åšn-1è¶Ÿ 
 //		L->data[0] = L->data[1];
 //		L->data[1] = L->data[i];
 //		L->data[i] = L->data[0];
-		swap(&L->data[1], &L->data[i]);	//½«Õ»¶¥ºÍ×îºóÒ»¸ö½»»» 
-		Heapify(L, 1, i-1);	//½«L(1~i-1)ÖØĞÂµ÷Õû³É¶Ñ,½öÓĞL[1]¿ÉÄÜÎ¥·´¶ÑĞÔÖÊ 
+		swap(&L->data[1], &L->data[i]);	//å°†æ ˆé¡¶å’Œæœ€åä¸€ä¸ªäº¤æ¢ 
+		Heapify(L, 1, i-1);	//å°†L(1~i-1)é‡æ–°è°ƒæ•´æˆå †,ä»…æœ‰L[1]å¯èƒ½è¿åå †æ€§è´¨ 
 	}//endfor 
 }//HeapSort 
 void Build_MaxHeap(SeqList &L) {
-	for(int i=L.length/2; --i)	//´Ói=(n/2)~1,·´¸´µ÷Õû¶Ñ 
+	for(int i=L.length/2; --i)	//ä»i=(n/2)~1,åå¤è°ƒæ•´å † 
 		HeadAdjust(L);
 }
-//º¯ÊıHeadAdjust½«ÔªËØkÎª¸ùµÄ×ÓÊ÷½øĞĞµ÷Õû 
+//å‡½æ•°HeadAdjustå°†å…ƒç´ kä¸ºæ ¹çš„å­æ ‘è¿›è¡Œè°ƒæ•´ 
 void HeadAdjust(SeqList &L, int k) {
-	L->data[0] = L->data[k];	//L[0]´æ·Å×ÓÊ÷¸ù½áµã 
-	for(i=2*k; i<=L.length; i*=2) {	//ÑØKey½Ï´óµÄ×Ó½áµãµÄÏÂ±ê 
+	L->data[0] = L->data[k];	//L[0]å­˜æ”¾å­æ ‘æ ¹ç»“ç‚¹ 
+	for(i=2*k; i<=L.length; i*=2) {	//æ²¿Keyè¾ƒå¤§çš„å­ç»“ç‚¹çš„ä¸‹æ ‡ 
 		if(i<L.length && L->data[i]<L->data[i+1])
 			i++;
-		if(L->data[0]>=L->data[i])	//É¸Ñ¡½áÊø 
+		if(L->data[0] >= L->data[i])	//ç­›é€‰ç»“æŸ 
 			break;
 		else
-			L->data[k] = L->data[i];	//½«L[i]µ÷Õûµ½Ë«Ç×½áµãÉÏ 
-			k = i;		//ĞŞ¸ÄKÖµ,ÒÔ±ã¼ÌĞøÏòÏÂÉ¸Ñ¡ 
+			L->data[k] = L->data[i];	//å°†L[i]è°ƒæ•´åˆ°åŒäº²ç»“ç‚¹ä¸Š 
+			k = i;		//ä¿®æ”¹Kå€¼,ä»¥ä¾¿ç»§ç»­å‘ä¸‹ç­›é€‰ 
 	}
-	L->data[k] = L->data[0]; //±»É¸Ñ¡½áµãµÄÖµ·ÅÈë×îÖÕÎ»ÖÃ 
+	L->data[k] = L->data[0]; //è¢«ç­›é€‰ç»“ç‚¹çš„å€¼æ”¾å…¥æœ€ç»ˆä½ç½® 
 }
 
 
@@ -98,19 +98,19 @@ void bubble_sort(SeqList &L) {
 void selection_sort(SeqList &L) {
 	int i,j;
 	
-	//ÒÑÅÅĞòµÄÔªËØ 
+	//å·²æ’åºçš„å…ƒç´  
 //	for(i=0; i<L.length-1; ++i)
 	for(i=1; i<L.length; ++i) {
 		int min = i;
 		
-		//±éÀúÎ´ÅÅĞòµÄÔªËØ 
+		//éå†æœªæ’åºçš„å…ƒç´  
 //		for(j=i+1; j<L.length; ++j)
 		for(j=i; j<=L.length; ++j) {
-			//ÕÒµ½Ä¿Ç°µÄ×îĞ¡Öµ 
+			//æ‰¾åˆ°ç›®å‰çš„æœ€å°å€¼ 
 			if(L->data[j]  < L->data[min]) {
-				//¼ÇÂ¼×îĞ¡Öµ 
+				//è®°å½•æœ€å°å€¼ 
 				min = j;
-				//½»»»ÔªËØ 
+				//äº¤æ¢å…ƒç´  
 				swap(&L->data[min], &L->data[i]);
 			}
 		}
@@ -134,7 +134,7 @@ void shell_sort(SeqList &L) {
 	int i,j;
 	int temp, gap;
 	
-	//a>>=1ÅĞ¶ÏaÊÇ·ñ>=1,a=a>>1ÊÇÏÈÅĞ¶ÏÊÇ·ñ´óÓÚ1,´óÓÚµÄ»°a=aµÄÖµ 
+	//a>>=1åˆ¤æ–­aæ˜¯å¦>=1,a=a>>1æ˜¯å…ˆåˆ¤æ–­æ˜¯å¦å¤§äº1,å¤§äºçš„è¯a=açš„å€¼ 
 	for(gap=L.length>>1; gap>0; gap = gap>>1)
 		for(i=gap; i<L.length; ++i) {
 			temp = L->data[i];
