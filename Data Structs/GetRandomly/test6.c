@@ -1,5 +1,5 @@
 #include<stdio.h>
-/*
+
 void getRandom() {
 	srand((unsigned)time(NULL));
 	int i,a[10];
@@ -12,7 +12,7 @@ void getRandom() {
 main() {
 	getRandom();
 	return 0;
-} */
+}
 
 static int sum=0;
 int sumFunction(int a,int b) {
