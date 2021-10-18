@@ -40,7 +40,7 @@ void quick_sort(SeqList &L, int low, int high) {
 	}
 }//QuickSort
 int Partition(SeqList &L, int low, int high){  //一趟划分 
-	Elemtype privot = L->data[low];	//将当前表中第一个元素设为枢轴，对表进行划分 
+	Elemtype pivot = L->data[low];	//将当前表中第一个元素设为枢轴，对表进行划分 
 	while(low<high) {	//循环跳出条件 
 		for(; low<high&&L->data[high]>=pivot; --high)
 			L->data[low] = L->data[high]; //将比枢轴小的元素移动到左端 
